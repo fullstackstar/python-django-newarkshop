@@ -1,0 +1,8 @@
+*.pyc
+*.deb
+*.swp
+*.bak
+*.sql.gz
+.~*
+.DS_Store
+.idea/
