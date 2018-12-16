@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party apps
+    'bootstrap3',
+
     #My apps
-    'mainsite',
+    'main_site',
+    'payments',
     'users'
 ]
 
