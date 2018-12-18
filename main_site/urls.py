@@ -7,4 +7,5 @@ app_name = 'main_site'
 urlpatterns = [
     # Home page.
     path('', views.index, name='index'),
+    path('/consumer', views.consumer, name='consumer'),
 ]

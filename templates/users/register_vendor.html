@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <form enctype="multipart/form-data" method="post"
+          action="{% url 'users:registerAsVendor' %}" id="registerForm" name="registerForm">
+        {% csrf_token %}
+        <div class="profile-main show">
+            <h1>NEW VENDORS-Create an Account</h1>
+            {#        {% bootstrap_form profile_form %}#}
+
+            {%  bootstrap_field profile_form.business_name %}
+            <div class="form-group">
+                <label class="control-label" for="id_first_name">Business Contract*</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        {%  bootstrap_field profile_form.first_name %}
+                    </div>
+                    <div class="col-md-6">
+                        {%  bootstrap_field profile_form.last_name %}
+                    </div>
+                </div>
+            </div>
+            {%  bootstrap_field profile_form.address_line1 %}
+            {%  bootstrap_field profile_form.address_line2 %}
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-10">
+                        {%  bootstrap_field profile_form.city %}
+                    </div>
+                    <div class="col-md-2">
+                        {%  bootstrap_field profile_form.st %}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-5">
+                        {%  bootstrap_field profile_form.zip_code %}
+                    </div>
+                    <div class="col-md-7">
+                        {%  bootstrap_field profile_form.phone_number %}
+                    </div>
+                </div>
+            </div>
+            {%  bootstrap_field profile_form.of_employees %}
+
+            {% bootstrap_form user_form %}
+
+            <a class="btn btn-primary">Next</a>
+        </div>
+        <div class="profile-terms-agree">
+            <h1>Terms & Conditions</h1>
+            <div>
+                <div class="agree-content"></div>
+                <div class="checkbox checkbox-agree">
+                    <label for="id_agree">
+                        <input type="checkbox" name="of_employees" class="" id="id_agree">I Agree
+                    </label>
+                </div>
+            </div>
+            <a class="btn btn-primary">Next</a>
+        </div>
+        <div class="profile-payment">
+            <h1>NEW VENDORS-Payment</h1>
+            <h2>Monthly Subscription</h2>
+            <p>$20</p>
+            {% bootstrap_field payment_form.card_number %}
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% bootstrap_field payment_form.exp_date %}
+                    </div>
+                    <div class="col-md-6">
+                        {% bootstrap_field payment_form.cvv %}
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-primary">Next</a>
+        </div>
+        <div class="profile-confirm">
+            <p>Business Name : <span class="confirm-email-address"></span></p>
+            <p>
+                First Name : <span class="confirm-first-name"></span>
+                Last Name : <span class="confirm-last-name"></span>
+            </p>
+            <p>Business Address 1 : <span class="confirm-business-address1"></span></p>
+            <p>Business Address 2 : <span class="confirm-business-address2"></span></p>
+            <p>City : <span class="confirm-city"></span></p>
+            <p>
+                ST : <span class="confirm-st"></span>
+                ZIP Code : <span class="confirm-zip-code"></span>
+            </p>
+            <p>Phone : <span class="confirm-phone-number"></span></p>
+            <p>Email Address : <span class="confirm-email-address"></span></p>
+
+            <h2>Payment Information</h2>
+            <p>Credit Card : <span class="confirm-card-number"></span></p>
+            <p>
+                Exp : <span class="confirm-exp-date"></span>
+                CVV : <span class="confirm-cvv"></span>
+            </p>
+
+            <button name="submit" class="btn btn-primary">register</button>
+            <input type="hidden" name="next" value="{% url 'main_site:index' %}" />
+            <input type="hidden" name="status" id="status" value="" />
+        </div>
+    </form>
+
+
+    <script>
+        $(document).ready(function(){
+            {#$(".page-content > form > div").hide();#}
+
+            $(".page-content > form > div > a").click(function () {
+                if($(this).parent().hasClass('profile-terms-agree')){
+                    if($('#id_agree').prop('checked') == false) return;
+                }
+
+                if($(this).parent().next().hasClass('profile-confirm')){
+                    setProfileConfirmView();
+                }
+
+                $(this).parent().removeClass('show');
+                $(this).parent().next().addClass('show');
+            });
+
+        });
+        function setProfileConfirmView() {
+            $('.confirm-email-address').text($('#id_username').val());
+            $('.confirm-first-name').text($('#id_first_name').val());
+            $('.confirm-last-name').text($('#id_last_name').val());
+            $('.confirm-business-address1').text($('#id_address_line1').val());
+            $('.confirm-business-address2').text($('#id_address_line2').val());
+            $('.confirm-city').text($('#id_city').val());
+            $('.confirm-st').text($('#id_st').val());
+            $('.confirm-zip-code').text($('#id_zip_code').val());
+            $('.confirm-phone-number').text($('#id_phone_number').val());
+            $('.confirm-email-address').text($('#id_username').val());
+
+            $('.confirm-card-number').text($('#id_card_number').val());
+            $('.confirm-exp-date').text($('#id_exp_date').val());
+            $('.confirm-cvv').text($('#id_cvv').val());
+        }
+
+        function goNext(obj) {
+            if($(obj).parent().hasClass('profile-confirm')){
+                $('#status').val('final');
+            }
+            if($(obj).parent().hasClass('profile-terms-agree')){
+                if($('#id_agree').prop('checked') == false) return;
+            }
+
+            $(obj).parent().removeClass('show');
+            $(obj).parent().next().addClass('show');
+        }
+    </script>
+
+{% endblock content %}

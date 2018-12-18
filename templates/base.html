@@ -1,8 +1,9 @@
 {% load bootstrap3 %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,52 +13,67 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
-  </head>
-  
-  <body>
+    <script src="{% static 'js/main.js' %}"></script> <!-- This is how to include a static file -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css" />
 
-    <!-- Static navbar -->
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-          
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed"
-              data-toggle="collapse" data-target="#navbar"
-              aria-expanded="false" aria-controls="navbar">
-          </button>
-          <a class="navbar-brand" href="{% url 'main_site:index' %}">
-              Newark Shop</a>
-        </div>
-        
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a>Topics</a></li>
-          </ul>
-          
-          <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-              <li><a>Hello, {{ user.username }}.</a></li>
-              <li><a href="{% url 'users:logout' %}">log out</a></li>
-            {% else %}
-              <li><a href="{% url 'users:register' %}">register</a></li>
-              <li><a href="{% url 'users:login' %}">log in</a></li>
-            {% endif %}
-          </ul>
-        </div><!--/.nav-collapse -->
-        
-      </div>
-    </nav>
-    
+</head>
+
+<body>
+
+<!-- Static navbar -->
+<nav class="navbar navbar-default navbar-static-top">
     <div class="container">
 
-      <div class="page-header">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+            </button>
+            <a class="navbar-brand" href="{% url 'main_site:index' %}">
+                Newark Shop</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
+                    {% if user.user_type == 'vendor' %}
+                        <li><a href="{% url 'payments:payment' %}">Payment</a>
+                    {% else %}
+                        {% if user.user_type == 'consumer' %}
+                            <li><a href="{% url 'main_site:consumer' %}">ConsumerPage</a>
+                        {% else %}
+                            <li><a href="{% url 'payments:payment' %}">Payment</a>
+                            <li><a href="{% url 'main_site:consumer' %}">ConsumerPage</a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li><a>Hello, {{ user.username }}.</a></li>
+                    <li><a href="{% url 'users:logout' %}">log out</a></li>
+                {% else %}
+                    <li><a href="{% url 'users:registerAsConsumer' %}">RegisterAsConsumer</a></li>
+                    <li><a href="{% url 'users:registerAsVendor' %}">RegisterAsVendor</a></li>
+                    <li><a href="{% url 'users:login' %}">log in</a></li>
+                {% endif %}
+            </ul>
+        </div><!--/.nav-collapse -->
+
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
         {% block header %}{% endblock %}
-      </div>
-      <div>
+    </div>
+    <div class="page-content">
         {% block content %}{% endblock %}
-      </div>
+    </div>
 
-    </div> <!-- /container -->
+</div> <!-- /container -->
 
-  </body>
+</body>
 </html>

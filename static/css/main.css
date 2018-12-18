@@ -1,0 +1,10 @@
+.profile-terms-agree .agree-content {
+    background: #337ab7;
+    margin: 10px 10px 10px 10px;
+    border: 1px solid #2e6da4;
+    height: 600px;
+}
+
+.profile-terms-agree .checkbox-agree {
+    margin-left:20px ;
+}
