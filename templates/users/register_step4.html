@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    {% if user_type == 'vendor' %}
+        <form enctype="multipart/form-data" method="post"
+              action="{% url 'users:registerVendorStepFour' %}" onsubmit="return goNext()">
+    {% endif %}
+    {% if user_type == 'consumer' %}
+        <form enctype="multipart/form-data" method="post"
+              action="{% url 'users:registerConsumerStepThree' %}" onsubmit="return goNext()">
+    {% endif %}
+
+        {% csrf_token %}
+        <div class="profile-form-div">
+            {%  bootstrap_field profile_form.business_name %}
+            <div class="form-group">
+                <label class="control-label" for="id_first_name">Business Contract*</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        {%  bootstrap_field profile_form.first_name %}
+                    </div>
+                    <div class="col-md-6">
+                        {%  bootstrap_field profile_form.last_name %}
+                    </div>
+                </div>
+            </div>
+            <label class="control-label" for="id_address_line1">Business    Address*</label>
+            {%  bootstrap_field profile_form.address_line_one %}
+            {%  bootstrap_field profile_form.address_line_two %}
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-10">
+                        {%  bootstrap_field profile_form.city %}
+                    </div>
+                    <div class="col-md-2">
+                        {%  bootstrap_field profile_form.st %}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-5">
+                        {%  bootstrap_field profile_form.zip_code %}
+                    </div>
+                    <div class="col-md-7">
+                        {%  bootstrap_field profile_form.phone_number %}
+                    </div>
+                </div>
+            </div>
+
+            {%  bootstrap_field profile_form.company %}
+            {% bootstrap_form user_form %}
+            {%  bootstrap_field profile_form.of_employees %}
+
+            {% if user_type == 'vendor' %}
+                {% bootstrap_field payment_form.card_number %}
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% bootstrap_field payment_form.exp_date %}
+                        </div>
+                        <div class="col-md-6">
+                            {% bootstrap_field payment_form.cvv %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="profile-confirm">
+            <h1 class="register-title">Customers-Confirmation Page</h1>
+            {% if user_type == 'vendor' %}
+                <p>Business Name : <span class="confirm_business_name"></span></p>
+            {% endif %}
+            {% if user_type == 'consumer' %}
+                <p>Business Name : <span class="confirm_company"></span></p>
+            {% endif %}
+            <p>
+                First Name : <span class="confirm_first_name"></span>
+                Last Name : <span class="confirm_last_name"></span>
+            </p>
+            <p>Business Address 1 : <span class="confirm_address_line_one"></span></p>
+            <p>Business Address 2 : <span class="confirm_address_line_two"></span></p>
+            <p>City : <span class="confirm_city"></span></p>
+            <p>
+                ST : <span class="confirm_st"></span>
+                ZIP Code : <span class="confirm_zip_code"></span>
+            </p>
+            <p>Phone : <span class="confirm_phone_number"></span></p>
+            <p>Email Address : <span class="confirm_username"></span></p>
+            <p>pwd : <span class="confirm_password"></span></p>
+            <p>confirm_pwd : <span class="confirm_confirm_password"></span></p>
+
+            {% if user_type == 'vendor' %}
+                <h2>Payment Information</h2>
+                <p>Credit Card : <span class="confirm_card_number"></span></p>
+                <p>
+                    Exp : <span class="confirm_exp_date"></span>
+                    CVV : <span class="confirm_cvv"></span>
+                </p>
+            {% endif %}
+
+            <div class="checkbox checkbox-agree">
+                <label for="id_agree">
+                    <input type="checkbox" name="of_employees" class="" id="agree_in_register">Yes, I would like to receive information about shop Newark
+                </label>
+            </div>
+
+            <button name="submit" class="btn btn-primary">register</button>
+        </div>
+    </form>
+
+    <script>
+        let itemList = [
+            'business_name',
+            'first_name',
+            'last_name',
+            'address_line_one',
+            'address_line_two',
+            'city',
+            'st',
+            'zip_code',
+            'phone_number',
+            'company',
+            'username',
+            'password',
+            'confirm_password',
+
+            'card_number',
+            'exp_date',
+            'cvv'
+        ]
+        $(document).ready(function(){
+            setProfileFormValue()
+            setProfileConfirmView()
+        });
+
+        function setProfileFormValue() {
+            {#$('#id_business_name').val(localStorage.getItem('business_name'))#}
+            for(let x in itemList) {
+                $('#id_' + itemList[x]).val(localStorage.getItem(itemList[x]))
+            }
+        }
+
+        function setProfileConfirmView() {
+            for(let x in itemList) {
+                $('.confirm_' + itemList[x]).text(localStorage.getItem(itemList[x]))
+            }
+        }
+
+        function goNext() {
+            if($('#agree_in_register').prop('checked') == false) {
+                {#alert('aaa')#}
+                return false
+            }
+            {#alert('bbb')#}
+        }
+
+    </script>
+
+{% endblock content %}

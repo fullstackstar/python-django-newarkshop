@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block navbar-nav %}
+    {% if user.user_type == 'vendor' %}
+        <li><a href="{% url 'payments:payment' %}">Payment</a>
+        <li><a href="{% url 'main_site:vendor_transactions' %}">accept</a>
+    {% endif %}
+    {% if user.user_type == 'consumer' %}
+        <li><a href="{% url 'main_site:consumer_vendors' %}">purchase</a>
+    {% endif %}
+{% endblock %}
+
+{% block navbar-right %}
+    <li><a>WelCome {{ user.userprofileinfo.first_name }} {{ user.userprofileinfo.last_name }}!</a></li>
+    <li><a>Account</a></li>
+{% endblock %}
+
+{% block header %}
+    <div class="landing-vendor">
+        <div class="logo-div">
+            <img src="/static/img/logo.png" />
+        </div>
+    </div>
+{% endblock %}

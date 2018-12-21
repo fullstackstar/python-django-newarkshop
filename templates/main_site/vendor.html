@@ -1,0 +1,16 @@
+{% extends "main_site/base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <h2>Business Name : {{ vendor_user.userprofileinfo.business_name }}</h2>
+
+    <form enctype="multipart/form-data" method="post"
+              action="{% url 'main_site:vendor' vendor_user.id %}">
+
+        {% csrf_token %}
+
+        {% bootstrap_form transaction_form %}
+
+        <button name="submit" class="btn btn-primary">purchase</button>
+    </form>
+{% endblock %}

@@ -3,15 +3,12 @@
 
 {% block content %}
     <form enctype="multipart/form-data" method="post"
-          action="{% url 'users:registerVendor' %}" id="registerForm" name="registerForm">
+          action="{% url 'users:registerConsumer' %}" id="registerForm" name="registerForm">
         {% csrf_token %}
         <div class="profile-main show">
-            <h1 class="register-title">NEW VENDORS-Create an Account</h1>
-            {#        {% bootstrap_form profile_form %}#}
-
-            {%  bootstrap_field profile_form.business_name %}
+            <h1 class="register-title">CONSUMER-Create an Account</h1>
             <div class="form-group">
-                <label class="control-label" for="id_first_name">Business Contract*</label>
+                <label class="control-label" for="id_first_name">Contract*</label>
                 <div class="row">
                     <div class="col-md-6">
                         {%  bootstrap_field profile_form.first_name %}
@@ -21,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <label class="control-label" for="id_address_line1">Business    Address*</label>
+            <label class="control-label" for="id_address_line1">Address*</label>
             {%  bootstrap_field profile_form.address_line1 %}
             {%  bootstrap_field profile_form.address_line2 %}
             <div class="form-group">
@@ -62,26 +59,8 @@
             </div>
             <a class="btn btn-primary">Next</a>
         </div>
-        <div class="profile-payment">
-            <h1 class="register-title">NEW VENDORS-Payment</h1>
-            <h2>Monthly Subscription</h2>
-            <p>$20</p>
-            {% bootstrap_field payment_form.card_number %}
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6">
-                        {% bootstrap_field payment_form.exp_date %}
-                    </div>
-                    <div class="col-md-6">
-                        {% bootstrap_field payment_form.cvv %}
-                    </div>
-                </div>
-            </div>
-            <a class="btn btn-primary">Next</a>
-        </div>
         <div class="profile-confirm">
-            <hl class="register-title">New Vendors-Confirmation Page</hl>
-            <p>Business Name : <span class="confirm-email-address"></span></p>
+            <hl class="register-title">Consumer-Confirmation Page</hl>
             <p>
                 First Name : <span class="confirm-first-name"></span>
                 Last Name : <span class="confirm-last-name"></span>
@@ -96,19 +75,11 @@
             <p>Phone : <span class="confirm-phone-number"></span></p>
             <p>Email Address : <span class="confirm-email-address"></span></p>
 
-            <h2>Payment Information</h2>
-            <p>Credit Card : <span class="confirm-card-number"></span></p>
-            <p>
-                Exp : <span class="confirm-exp-date"></span>
-                CVV : <span class="confirm-cvv"></span>
-            </p>
-
             <button name="submit" class="btn btn-primary">register</button>
             <input type="hidden" name="next" value="{% url 'main_site:index' %}" />
             <input type="hidden" name="status" id="status" value="" />
         </div>
     </form>
-
 
     <script>
         $(document).ready(function(){
@@ -140,22 +111,8 @@
             $('.confirm-phone-number').text($('#id_phone_number').val());
             $('.confirm-email-address').text($('#id_username').val());
 
-            $('.confirm-card-number').text($('#id_card_number').val());
-            $('.confirm-exp-date').text($('#id_exp_date').val());
-            $('.confirm-cvv').text($('#id_cvv').val());
         }
 
-        function goNext(obj) {
-            if($(obj).parent().hasClass('profile-confirm')){
-                $('#status').val('final');
-            }
-            if($(obj).parent().hasClass('profile-terms-agree')){
-                if($('#id_agree').prop('checked') == false) return;
-            }
-
-            $(obj).parent().removeClass('show');
-            $(obj).parent().next().addClass('show');
-        }
     </script>
 
 {% endblock content %}

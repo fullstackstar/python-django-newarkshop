@@ -30,32 +30,21 @@
                     aria-expanded="false" aria-controls="navbar">
             </button>
             <a class="navbar-brand" href="{% url 'main_site:index' %}">
-                Newark Shop</a>
+                Newark shop</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                {% if user.is_authenticated %}
-                    {% if user.user_type == 'vendor' %}
-                        <li><a href="{% url 'payments:payment' %}">Payment</a>
-                    {% else %}
-                        {% if user.user_type == 'consumer' %}
-                            <li><a href="{% url 'main_site:consumer' %}">ConsumerPage</a>
-                        {% else %}
-                            <li><a href="{% url 'payments:payment' %}">Payment</a>
-                            <li><a href="{% url 'main_site:consumer' %}">ConsumerPage</a>
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
+                {% block navbar-nav %}{% endblock %}
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                    <li><a>Hello, {{ user.username }}.</a></li>
-                    <li><a href="{% url 'users:logout' %}">log out</a></li>
+{#                    <li><a>Hello, {{ user.username }}.</a></li>#}
+                    {% block navbar-right %}{% endblock %}
+                    <li><a href="{% url 'users:logout' %}">Sign out</a></li>
                 {% else %}
-                    <li><a href="{% url 'users:registerAsConsumer' %}">RegisterAsConsumer</a></li>
-                    <li><a href="{% url 'users:registerAsVendor' %}">RegisterAsVendor</a></li>
+                    <li><a href="{% url 'users:registerConsumerStepOne' %}">RegisterAsConsumer</a></li>
+                    <li><a href="{% url 'users:registerVendorStepOne' %}">RegisterAsVendor</a></li>
                     <li><a href="{% url 'users:login' %}">log in</a></li>
                 {% endif %}
             </ul>

@@ -1,7 +1,16 @@
-<h2>Buy for $5.00</h2>
-<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key=""
-    data-description="A Django Charge"
-    data-amount="500"
-    data-locale="auto">
-</script>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Welcome to payment page</h1>
+    <h2>{{amount_dollar}}$ for pay</h2>
+
+    <form action="{% url 'payments:charge' %}" method="post">
+        {% csrf_token %}
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_test_7zRJ7Pl0EpmJ6ACNmjzk4mQL"
+            data-description="A Django Charge"
+            data-amount="{{amount_cent}}"
+            data-locale="auto">
+        </script>
+    </form>
+{% endblock %}

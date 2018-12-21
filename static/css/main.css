@@ -1,3 +1,4 @@
+
 .profile-terms-agree .agree-content {
     background: #337ab7;
     margin: 10px 10px 10px 10px;
@@ -7,4 +8,59 @@
 
 .profile-terms-agree .checkbox-agree {
     margin-left:20px ;
+}
+.profile-confirm .checkbox-agree {
+    margin-top:50px ;
+}
+
+.register-title {
+    margin-bottom: 50px;
+}
+.profile-form-div {
+    display: none !important;
+}
+.landing .logo-div {
+    margin-bottom: 50px;
+    text-align: center;
+}
+.landing-vendor .logo-div {
+    margin-bottom: 10px !important;
+}
+.landing-vendor .logo-div img {
+    width: 200px;
+}
+
+.page-header {
+    margin-top: 0px !important;
+}
+.dashboard {
+    border-right: 1px solid #e7e7e7;
+}
+.dashboard > div {
+    background: #e7e7e7;
+}
+.detail-header .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+.detail-header span.title {
+    font-size: 18px;
+}
+
+
+
+
+
+
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
+}
+.color-danger {
+    color: #a94442 !important;
+}
+.color-success {
+    color:#3c763d !important;
 }

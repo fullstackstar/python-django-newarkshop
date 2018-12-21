@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="profile-terms-agree">
+        <h1 class="register-title">Terms & Conditions</h1>
+        <div>
+            <div class="agree-content"></div>
+            <div class="checkbox checkbox-agree">
+                <label for="id_agree">
+                    <input type="checkbox" name="of_employees" class="" id="id_agree">I Agree
+                </label>
+            </div>
+        </div>
+
+        <a class="btn btn-primary" onclick="goNext(this)">Next</a>
+    </div>
+
+    <script>
+        function goNext(obj) {
+            if($('#id_agree').prop('checked') == false) return;
+            let userType = $('#user_type').val()
+            $(obj).attr("href", "stepThree")
+        }
+    </script>
+
+{% endblock content %}

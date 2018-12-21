@@ -13,12 +13,13 @@ class UserProfileInfo(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     address_line_one = models.CharField(max_length=50)
-    address_line_two = models.CharField(max_length=50, blank=True)
+    address_line_two = models.CharField(max_length=50, null=True)
     city = models.CharField(max_length=50)
     st = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=50)
     of_employees = models.BooleanField(default=False)
+    company = models.CharField(max_length=100)
 
     def __str__(self):
         return self.user.username

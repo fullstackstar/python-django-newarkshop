@@ -1,0 +1,45 @@
+{% extends "main_site/base.html" %}
+
+{% block content %}
+    <div class='vendors'>
+        <div class="vendors-detail">
+            <div class="detail-header">
+                <div class="row">
+                    <span class="title float-left">Vendors List</span>
+                    <span class="float-right">1-10 of 40</span>
+                </div>
+            </div>
+            <div class="detail-content">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>No</td>
+                        <th>Business Name</th>
+                        <th>Address</th>
+                        <th>action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for vendor in vendor_users %}
+                        <tr>
+                            <td>{{ forloop.counter }} </td>
+                            <td>{{ vendor.userprofileinfo.business_name }}</td>
+                            <td>{{ vendor.userprofileinfo.address_line_one }}</td>
+                            <td><a href="{% url 'main_site:vendor' vendor.userprofileinfo.user_id %}" class="btn btn-primary">purchase</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="detail-footer">
+                <ul class="pagination float-right">
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

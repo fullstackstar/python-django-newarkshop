@@ -1,0 +1,52 @@
+{% extends "main_site/base.html" %}
+
+{% block content %}
+    <div class='consumers'>
+        <div class="consumers-detail">
+            <div class="detail-header">
+                <div class="row">
+                    <span class="title float-left">Transaction Details</span>
+                    <span class="float-right">1-10 of 40</span>
+                </div>
+            </div>
+            <div class="detail-content">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>No</td>
+                        <th>#</th>
+                        <th>Consumer</th>
+                        <th>Purchase Amount</th>
+                        <th>Accepted Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ transaction.line_number }}</td>
+                            <td>{{ transaction.consumer.userprofileinfo.username }}</td>
+                            <td>{{ transaction.amount }}</td>
+                            <td {% if transaction.vendor_status == 'NotAccepted' %} class="color-danger" {% endif %}
+                            {% if transaction.vendor_status == 'Accepted' %} class="color-success" {% endif %}>
+                                {{ transaction.vendor_status }}
+                            </td>
+                            <td><a href="{% url 'main_site:vendor_accept' transaction.id %}" class="btn btn-primary">Accept</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="detail-footer">
+                <ul class="pagination float-right">
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

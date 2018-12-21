@@ -154,3 +154,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 BOOTSTRAP3 = {
     'include_jquery': True,
 }
+
+STRIPE_SECRET_KEY = 'sk_test_1rWmf788r4ZF60Yz06XtW4ur'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_7zRJ7Pl0EpmJ6ACNmjzk4mQL'
+

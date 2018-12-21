@@ -1,0 +1,66 @@
+{% extends "main_site/base.html" %}
+
+{% block content %}
+    <div class='landing-vendor'>
+        <div class="row">
+            <div class="col-md-4 dashboard">
+                <div class="total-transaction">
+                    <h3>Total Credits Earned</h3>
+                    <p>###</p>
+                </div>
+                <div class="total-sales">
+                    <h3>Total Spent</h3>
+                    <p>###</p>
+                </div>
+            </div>
+            <div class="col-md-8 dashboard-detail">
+                <div class="detail-header">
+                    <div class="row">
+                        <span class="title float-left">Transaction Details</span>
+                        <span class="float-right">1-10 of 40</span>
+                    </div>
+                </div>
+                <div class="detail-content">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>No</td>
+                                <th>#</th>
+                                <th>Business Name</th>
+                                <th>Amount</th>
+                                <th>Purchased Date</th>
+                                <th>Accepted Date</th>
+                                <th>Accepted Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for transaction in transactions %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ transaction.line_number }}</td>
+                                <td>{{ transaction.vendor.userprofileinfo.business_name }}</td>
+                                <td>{{ transaction.amount }}</td>
+                                <td>{{ transaction.purchased_date }}</td>
+                                <td>{{ transaction.accepted_date }}</td>
+                                <td {% if transaction.vendor_status == 'NotAccepted' %} class="color-danger" {% endif %}
+                                    {% if transaction.vendor_status == 'Accepted' %} class="color-success" {% endif %}>
+                                    {{ transaction.vendor_status }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="detail-footer">
+                    <ul class="pagination float-right">
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <form enctype="multipart/form-data" method="post"
+          action="{% url 'users:registerVendorStepThree' %}" onsubmit="goNext()">
+        {% csrf_token %}
+
+        <h1 class="register-title">NEW VENDORS-Payment</h1>
+        <h2>Monthly Subscription</h2>
+        <p>$20</p>
+        {% bootstrap_field payment_form.card_number %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    {% bootstrap_field payment_form.exp_date %}
+                </div>
+                <div class="col-md-6">
+                    {% bootstrap_field payment_form.cvv %}
+                </div>
+            </div>
+        </div>
+
+        <button name="submit" class="btn btn-primary">Next</button>
+    </form>
+
+
+    <script>
+        function goNext() {
+            let itemList = [
+                'card_number',
+                'exp_date',
+                'cvv'
+            ]
+
+            for (let x in itemList) {
+                localStorage.setItem(itemList[x], $('#id_' + itemList[x]).val())
+            }
+        }
+    </script>
+
+{% endblock content %}

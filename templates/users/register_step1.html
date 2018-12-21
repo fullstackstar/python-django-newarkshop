@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    {% if user_type == 'vendor' %}
+        <form enctype="multipart/form-data" method="post"
+              action="{% url 'users:registerVendorStepOne' %}" onsubmit="goNext()">
+    {% endif %}
+    {% if user_type == 'consumer' %}
+        <form enctype="multipart/form-data" method="post"
+              action="{% url 'users:registerConsumerStepOne' %}" onsubmit="goNext()">
+    {% endif %}
+
+        {% csrf_token %}
+
+        {% if user_type == 'vendor' %}
+            <h1 class="register-title">NEW VENDORS-Create an Account</h1>
+        {% endif %}
+        {% if user_type == 'consumer' %}
+            <h1 class="register-title">CONSUMER-Create an Account</h1>
+        {% endif %}
+
+        {% bootstrap_field profile_form.business_name %}
+        <div class="form-group">
+            {% if user_type == 'vendor' %}
+                <label class="control-label" for="id_first_name">Business Contract*</label>
+            {% endif %}
+            {% if user_type == 'consumer' %}
+                <label class="control-label" for="id_first_name">Contract*</label>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-6">
+                    {%  bootstrap_field profile_form.first_name %}
+                </div>
+                <div class="col-md-6">
+                    {%  bootstrap_field profile_form.last_name %}
+                </div>
+            </div>
+        </div>
+        {% if user_type == 'vendor' %}
+            <label class="control-label" for="id_address_line1">Business Address*</label>
+        {% endif %}
+        {% if user_type == 'consumer' %}
+            <label class="control-label" for="id_address_line1">Address*</label>
+        {% endif %}
+
+        {%  bootstrap_field profile_form.address_line_one %}
+        {%  bootstrap_field profile_form.address_line_two %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-10">
+                    {%  bootstrap_field profile_form.city %}
+                </div>
+                <div class="col-md-2">
+                    {%  bootstrap_field profile_form.st %}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-5">
+                    {%  bootstrap_field profile_form.zip_code %}
+                </div>
+                <div class="col-md-7">
+                    {%  bootstrap_field profile_form.phone_number %}
+                </div>
+            </div>
+        </div>
+
+        {%  bootstrap_field profile_form.company %}
+
+        {% bootstrap_form user_form %}
+        {% if user_type == 'vendor' %}
+            {%  bootstrap_field profile_form.of_employees %}
+        {% endif %}
+
+        <input type="hidden" id="user_type" value="{{ user_type }}">
+        <button name="submit" class="btn btn-primary">next</button>
+    </form>
+
+    <script>
+        $(document).ready(function(){
+            let userType = $('#user_type').val()
+            if(userType == 'vendor') {
+                $('#id_company').parent().hide()
+                $('#id_company').val("NotSetting")
+            }
+            else if(userType == 'consumer') {
+                $('#id_business_name').parent().hide()
+                $('#id_business_name').val("NotSetting")
+            }
+        });
+        function goNext() {
+            {#$('#registerForm').submit()#}
+            let itemList = [
+                'business_name',
+                'first_name',
+                'last_name',
+                'address_line_one',
+                'address_line_two',
+                'city',
+                'st',
+                'zip_code',
+                'phone_number',
+                'company',
+                'username',
+                'password',
+                'confirm_password',
+            ]
+
+            for (let x in itemList) {
+                localStorage.setItem(itemList[x], $('#id_' + itemList[x]).val())
+            }
+        }
+    </script>
+
+{% endblock content %}
