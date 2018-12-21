@@ -11,8 +11,7 @@ urlpatterns = [
     path('vendor/transactions', views.vendor_transactions, name='vendor_transactions'),
     # path('vendor/transactions/accept/<int:transaction_id>', views.vendor_accept, name='vendor_accept'),
     re_path(r'^vendor/transactions/accept/(?P<transaction_id>\d+)$', views.vendor_accept, name='vendor_accept'),
-    # re_path(r'^vendors/(?P<vendor_id>\d+)$', views.vendor, name='vendor'),
     path('consumer/dashboard', views.consumer_dashboard, name='consumer_dashboard'),
-    path('consumer/vendors', views.vendors, name='consumer_vendors'),
+    path('consumer/vendors', views.vendors, name='consumer_purchase'),
     path('consumer/vendors/<int:vendor_id>', views.vendor, name='vendor'),
 ]

@@ -2,11 +2,11 @@
 
 {% block navbar-nav %}
     {% if user.user_type == 'vendor' %}
+        <li><a href="{% url 'main_site:vendor_transactions' %}">Accept</a>
         <li><a href="{% url 'payments:payment' %}">Payment</a>
-        <li><a href="{% url 'main_site:vendor_transactions' %}">accept</a>
     {% endif %}
     {% if user.user_type == 'consumer' %}
-        <li><a href="{% url 'main_site:consumer_vendors' %}">purchase</a>
+        <li><a href="{% url 'main_site:consumer_purchase' %}">Purchase</a>
     {% endif %}
 {% endblock %}
 
