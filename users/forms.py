@@ -12,7 +12,7 @@ class LoginForm(AuthenticationForm):
 
 
 class UserForm(forms.ModelForm):
-    password = forms.CharField(label='password*', widget=forms.PasswordInput())
+    password = forms.CharField(label='Password*', widget=forms.PasswordInput())
     confirm_password = forms.CharField(label='Confirm Password*', widget=forms.PasswordInput())
 
     class Meta:
@@ -63,7 +63,7 @@ class UserForm(forms.ModelForm):
 
 class UserProfileInfoForm(forms.ModelForm):
     business_name = forms.CharField(
-        label='Business_name*', max_length=100,
+        label='Business Name*', max_length=100,
         widget=forms.TextInput(attrs={'placeholder': ''})
     )
     first_name = forms.CharField(
@@ -92,7 +92,7 @@ class UserProfileInfoForm(forms.ModelForm):
     )
     zip_code = forms.CharField(
         label='', max_length=50,
-        widget=forms.TextInput(attrs={'type': 'number', 'placeholder': 'ZIP Code'})
+        widget=forms.TextInput(attrs={'type': 'number', 'placeholder': 'Zip Code'})
     )
     phone_number = forms.CharField(
         label='', max_length=50,
@@ -102,6 +102,10 @@ class UserProfileInfoForm(forms.ModelForm):
         label='# of Employees(Optional)', required=False,
         widget=forms.CheckboxInput(),
     )
+    # of_employees = forms.BooleanField(
+    #     label='# of Employees(Optional)', required=False,
+    #     widget=forms.TextInput()
+    # )
     company = forms.CharField(
         label='Company*', max_length=100,
         widget=forms.TextInput(attrs={'placeholder': ''})

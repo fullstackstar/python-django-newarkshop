@@ -1,3 +1,9 @@
+.page-content {
+    margin: 50px 0 30px 0;
+}
+.register-title {
+    /*margin-bottom: 50px;*/
+}
 
 .profile-terms-agree .agree-content {
     background: #337ab7;
@@ -5,29 +11,34 @@
     border: 1px solid #2e6da4;
     height: 600px;
 }
-
 .profile-terms-agree .checkbox-agree {
     margin-left:20px ;
 }
 .profile-confirm .checkbox-agree {
     margin-top:50px ;
 }
-
-.register-title {
-    margin-bottom: 50px;
-}
 .profile-form-div {
     display: none !important;
 }
 .landing .logo-div {
-    margin-bottom: 50px;
-    text-align: center;
+    margin: 0px auto 50px;
 }
+.landing .logo-div img {
+    width: 100%;
+}
+
 .landing-vendor .logo-div {
     margin-bottom: 10px !important;
 }
 .landing-vendor .logo-div img {
     width: 200px;
+}
+
+.navbar-default .navbar-toggle {
+    /*border-color: #204d74;*/
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    /*background-color: #122b40;*/
 }
 
 .page-header {

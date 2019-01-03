@@ -70,11 +70,12 @@
         </div>
 
         <div class="profile-confirm">
-            <h1 class="register-title">Customers-Confirmation Page</h1>
             {% if user_type == 'vendor' %}
+                <h1 class="register-title">Vendors-Confirmation Page</h1>
                 <p>Business Name : <span class="confirm_business_name"></span></p>
             {% endif %}
             {% if user_type == 'consumer' %}
+                <h1 class="register-title">Customers-Confirmation Page</h1>
                 <p>Business Name : <span class="confirm_company"></span></p>
             {% endif %}
             <p>
@@ -90,8 +91,6 @@
             </p>
             <p>Phone : <span class="confirm_phone_number"></span></p>
             <p>Email Address : <span class="confirm_username"></span></p>
-            <p>pwd : <span class="confirm_password"></span></p>
-            <p>confirm_pwd : <span class="confirm_confirm_password"></span></p>
 
             {% if user_type == 'vendor' %}
                 <h2>Payment Information</h2>

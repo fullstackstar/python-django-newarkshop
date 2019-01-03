@@ -27,10 +27,10 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed"
                     data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
+                    aria-expanded="false" aria-controls="navbar">Menu
             </button>
             <a class="navbar-brand" href="{% url 'main_site:index' %}">
-                Newark shop</a>
+                Home</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
@@ -43,8 +43,8 @@
                     {% block navbar-right %}{% endblock %}
                     <li><a href="{% url 'users:logout' %}">Sign out</a></li>
                 {% else %}
-                    <li><a href="{% url 'users:registerConsumerStepOne' %}">RegisterAsConsumer</a></li>
-                    <li><a href="{% url 'users:registerVendorStepOne' %}">RegisterAsVendor</a></li>
+                    <li><a href="{% url 'users:registerConsumerStepOne' %}">Consumer Register</a></li>
+                    <li><a href="{% url 'users:registerVendorStepOne' %}">Vendor Register</a></li>
                     <li><a href="{% url 'users:login' %}">log in</a></li>
                 {% endif %}
             </ul>
