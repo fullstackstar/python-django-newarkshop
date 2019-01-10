@@ -49,9 +49,9 @@
                 </div>
             </div>
 
-            {%  bootstrap_field profile_form.company %}
+            {% bootstrap_field profile_form.company %}
             {% bootstrap_form user_form %}
-            {%  bootstrap_field profile_form.of_employees %}
+            {% bootstrap_field profile_form.of_employees %}
 
             {% if user_type == 'vendor' %}
                 {% bootstrap_field payment_form.card_number %}
@@ -103,7 +103,7 @@
 
             <div class="checkbox checkbox-agree">
                 <label for="id_agree">
-                    <input type="checkbox" name="of_employees" class="" id="agree_in_register">Yes, I would like to receive information about shop Newark
+                    <input type="checkbox" name="agree_in_register" class="" id="id_agree_in_register">Yes, I would like to receive information about shop Newark
                 </label>
             </div>
 
@@ -126,6 +126,7 @@
             'username',
             'password',
             'confirm_password',
+            'of_employees',
 
             'card_number',
             'exp_date',
@@ -148,15 +149,13 @@
                 $('.confirm_' + itemList[x]).text(localStorage.getItem(itemList[x]))
             }
         }
-
+    /*
         function goNext() {
             if($('#agree_in_register').prop('checked') == false) {
-                {#alert('aaa')#}
                 return false
             }
-            {#alert('bbb')#}
         }
-
+    */
     </script>
 
 {% endblock content %}

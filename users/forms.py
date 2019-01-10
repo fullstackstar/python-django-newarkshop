@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, SetPasswordForm
 from .models import UserProfileInfo, UserPaymentInfo
 from .models import CustomUser
 
@@ -7,8 +7,10 @@ import re
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label='Email Address', max_length=30,
-                               widget=forms.TextInput(attrs={'class': 'loginput'}))
+    username = forms.CharField(
+        label='Email Address', max_length=30,
+        widget=forms.TextInput(attrs={'class': 'loginput'})
+    )
 
 
 class UserForm(forms.ModelForm):
@@ -98,16 +100,16 @@ class UserProfileInfoForm(forms.ModelForm):
         label='', max_length=50,
         widget=forms.TextInput(attrs={'type': 'text', 'placeholder': 'Phone 222-222-2222'})
     )
-    of_employees = forms.BooleanField(
-        label='# of Employees(Optional)', required=False,
-        widget=forms.CheckboxInput(),
-    )
     # of_employees = forms.BooleanField(
     #     label='# of Employees(Optional)', required=False,
-    #     widget=forms.TextInput()
+    #     widget=forms.CheckboxInput(),
     # )
+    of_employees = forms.CharField(
+        label='# of Employees(Optional)', max_length=50, required=False,
+        widget=forms.TextInput()
+    )
     company = forms.CharField(
-        label='Company*', max_length=100,
+        label='Company*', max_length=50,
         widget=forms.TextInput(attrs={'placeholder': ''})
     )
 
@@ -162,6 +164,14 @@ class UserPaymentInfoForm(forms.ModelForm):
             self.add_error('card_number', "card_number is not correct")
 
         return cleaned_data
+
+
+# class CustomSetPasswordForm(SetPasswordForm):
+#     new_password1 = forms.CharField(
+#         label="New password",
+#         widget=forms.PasswordInput,
+#         help_text=None,
+#     )
 
 
 def only_numerics(p):

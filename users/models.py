@@ -18,8 +18,9 @@ class UserProfileInfo(models.Model):
     st = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=50)
-    of_employees = models.BooleanField(default=False)
-    company = models.CharField(max_length=100)
+    # of_employees = models.BooleanField(default=False)
+    of_employees = models.CharField(max_length=50, null=True)
+    company = models.CharField(max_length=50)
 
     def __str__(self):
         return self.user.username

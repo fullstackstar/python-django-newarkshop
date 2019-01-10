@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Third party apps
     'bootstrap3',
+    'debug_toolbar',
 
     #My apps
     'main_site',
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'newarkshop.urls'
@@ -142,13 +144,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 
 BOOTSTRAP3 = {
     'include_jquery': True,
@@ -157,3 +162,17 @@ BOOTSTRAP3 = {
 STRIPE_SECRET_KEY = 'sk_test_1rWmf788r4ZF60Yz06XtW4ur'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_7zRJ7Pl0EpmJ6ACNmjzk4mQL'
 
+# EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+# MAILGUN_ACCESS_KEY = 'b6b008c48658c7086a8f6f0f16590ae1-49a2671e-50afe42b'
+# MAILGUN_SERVER_NAME = 'sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org'
+EMAIL_HOST_PASSWORD = 'd864606fe44cc24fea814f30fd0f984a-49a2671e-b70b7ebd'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>'
+SERVER_EMAIL = 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>'
+
+LOGIN_REDIRECT_URL = '/user/login'

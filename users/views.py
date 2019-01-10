@@ -3,6 +3,11 @@ from django.contrib.auth import login, logout, authenticate
 
 from .forms import UserForm, UserProfileInfoForm, UserPaymentInfoForm
 
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.forms import SetPasswordForm
+from django.urls import reverse_lazy
+from django.conf import settings
+
 
 def logout_view(request):
     """Log the user out."""
@@ -136,3 +141,23 @@ def get_user_type(request):
         user_type = 'admin'
 
     return user_type
+
+
+# class ExtPasswordResetView(auth_views.PasswordResetView):
+#     template_name = 'users/password_reset.html',
+#     email_template_name = 'users/password_reset_email.html',
+#     subject_template_name = 'users/password_reset_subject.txt',
+#     from_email = settings.DEFAULT_FROM_EMAIL,
+#     success_url = reverse_lazy('users:password_reset_done')
+#
+#
+# password_reset_view = ExtPasswordResetView.as_view()
+#
+#
+# class ExtPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+#     template_name = 'users/password_reset_confirm.html',
+#     success_url = reverse_lazy('users:password_reset_complete')
+#     # form_class = SetPasswordForm
+#
+#
+# password_reset_confirm = ExtPasswordResetConfirmView.as_view()

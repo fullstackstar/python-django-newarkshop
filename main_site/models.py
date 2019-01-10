@@ -17,7 +17,8 @@ class Transaction(models.Model):
     amount = models.CharField(max_length=50)
     vendor_status = models.CharField(max_length=50, default="NotAccepted")
     consumer_status = models.CharField(max_length=50, default="NotPurchased")
-    purchased_date = models.DateTimeField(default=datetime.datetime.now())
+    # purchased_date = models.DateTimeField(default=datetime.datetime.now())
+    purchased_date = models.DateTimeField(null=True)
     accepted_date = models.DateTimeField(null=True)
 
     def __str__(self):

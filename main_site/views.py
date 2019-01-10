@@ -8,6 +8,8 @@ from .forms import TransactionForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
 
+from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 
 def index(request):
     """The home page for Newark Shop."""
@@ -18,6 +20,9 @@ def index(request):
             return redirect('main_site:vendor_dashboard')
         if user_type == 'consumer':
             return redirect('main_site:consumer_dashboard')
+
+    # send_mail('Hello', 'password reset test', 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>', ['sweetnougat@mail.com'])
+    # EmailMultiAlternatives('Hello', 'password reset test', 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>', ['sweetnougat@mail.com']).send()
 
     return render(request, 'main_site/index.html')
 

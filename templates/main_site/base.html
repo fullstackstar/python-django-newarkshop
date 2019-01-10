@@ -2,7 +2,7 @@
 
 {% block navbar-nav %}
     {% if user.user_type == 'vendor' %}
-        <li><a href="{% url 'main_site:vendor_transactions' %}">Accept</a>
+        <li><a href="{% url 'main_site:vendor_transactions' %}">Transaction</a>
         <li><a href="{% url 'payments:payment' %}">Payment</a>
     {% endif %}
     {% if user.user_type == 'consumer' %}
