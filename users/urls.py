@@ -26,6 +26,15 @@ urlpatterns = [
     path('register/vendor/stepThree', views.register_step_three, name='registerVendorStepThree'),
     path('register/vendor/stepFour', views.register_step_four, name='registerVendorStepFour'),
 
+    path('password_change', auth_views.PasswordChangeView.as_view(
+            template_name='users/password_change.html',
+            success_url=reverse_lazy('users:password_change_done')
+        ),
+        name='change_password'),
+    path(r'^password_change/complete/$', auth_views.PasswordResetCompleteView.as_view(
+                template_name='users/password_change_complete.html'
+            ), name='password_change_done'),
+
     # re_path(r'^password_reset/$', views.password_reset_view, name='password_reset'),
     #re_path(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
     #         views.password_reset_confirm, name='password_reset_confirm'),

@@ -1,18 +1,23 @@
 {% extends "base.html" %}
+{% load bootstrap3 %}
 
 {% block navbar-nav %}
-    {% if user.user_type == 'vendor' %}
-        <li><a href="{% url 'main_site:vendor_transactions' %}">Transaction</a>
-        <li><a href="{% url 'payments:payment' %}">Payment</a>
-    {% endif %}
-    {% if user.user_type == 'consumer' %}
-        <li><a href="{% url 'main_site:consumer_purchase' %}">Purchase</a>
+    {% if user.is_superuser %}
+        <li><a href="{% url 'main_site:admin_transactions' %}">Transactions</a>
+        <li><a href="{% url 'main_site:admin_users' %}">Users</a>
+    {% else %}
+        {% if user.user_type == 'vendor' %}
+            <li><a href="{% url 'main_site:vendor_transactions' %}">Transaction</a>
+            <li><a href="{% url 'payments:payment' %}">Payment</a>
+        {% endif %}
+        {% if user.user_type == 'consumer' %}
+        {% endif %}
     {% endif %}
 {% endblock %}
 
 {% block navbar-right %}
-    <li><a>WelCome {{ user.userprofileinfo.first_name }} {{ user.userprofileinfo.last_name }}!</a></li>
-    <li><a>Account</a></li>
+    <li><a>WelCome {{ user.first_name }} {{ user.last_name }}!</a></li>
+{#    <li><a>Account</a></li>#}
 {% endblock %}
 
 {% block header %}

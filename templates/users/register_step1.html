@@ -32,10 +32,10 @@
             {% endif %}
             <div class="row">
                 <div class="col-md-6">
-                    {%  bootstrap_field profile_form.first_name %}
+                    {%  bootstrap_field user_form.first_name %}
                 </div>
                 <div class="col-md-6">
-                    {%  bootstrap_field profile_form.last_name %}
+                    {%  bootstrap_field user_form.last_name %}
                 </div>
             </div>
         </div>
@@ -71,7 +71,10 @@
 
         {%  bootstrap_field profile_form.company %}
 
-        {% bootstrap_form user_form %}
+        {% bootstrap_field user_form.username %}
+        {% bootstrap_field user_form.email %}
+        {% bootstrap_field user_form.password %}
+        {% bootstrap_field user_form.confirm_password %}
         {% if user_type == 'vendor' %}
             {%  bootstrap_field profile_form.of_employees %}
         {% endif %}

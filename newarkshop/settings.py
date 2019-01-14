@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ih%rxy)dc#7&c$wq-6sy4c)@f2ou2scwlufy0fd*a56t8qw=g2'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -88,12 +89,11 @@ WSGI_APPLICATION = 'newarkshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'newarkshop',
-        'USER': 'root',
-        'PASSWORD': 'rootroot',
-        # 'HOST': '192.168.2.202',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
     }
     # 'default': {
@@ -168,8 +168,11 @@ STRIPE_PUBLISHABLE_KEY = 'pk_test_7zRJ7Pl0EpmJ6ACNmjzk4mQL'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mailgun.org'
+# EMAIL_HOST = config('EMAIL_HOST'),
 EMAIL_PORT = 587
+# EMAIL_PORT = config('EMAIL_PORT', cast=int),
 EMAIL_HOST_USER = 'postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org'
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER'),
 EMAIL_HOST_PASSWORD = 'd864606fe44cc24fea814f30fd0f984a-49a2671e-b70b7ebd'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>'

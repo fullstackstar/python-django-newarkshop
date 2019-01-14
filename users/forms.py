@@ -24,10 +24,17 @@ class UserForm(forms.ModelForm):
                 'placeholder': 'Email',
             }),
             'email': forms.HiddenInput,
+            'first_name': forms.TextInput(attrs={
+                'placeholder': 'First Name',
+            }),
+            'last_name': forms.TextInput(attrs={
+                'placeholder': 'Last Name',
+            }),
         }
         labels = {
-            'username': 'Email Address'
-            # "other_field": "Other Title"
+            'username': 'Email Address',
+            "first_name": '',
+            "last_name": '',
         }
         help_texts = {
             'username': ''
@@ -38,7 +45,10 @@ class UserForm(forms.ModelForm):
             }
         }
 
-        fields = ('username', 'password', 'confirm_password', 'email')
+        fields = (
+            'username', 'password', 'confirm_password', 'email',
+            'first_name', 'last_name'
+        )
 
     def clean(self):
         cleaned_data = super(UserForm, self).clean()
@@ -68,14 +78,6 @@ class UserProfileInfoForm(forms.ModelForm):
         label='Business Name*', max_length=100,
         widget=forms.TextInput(attrs={'placeholder': ''})
     )
-    first_name = forms.CharField(
-        label='', max_length=50,
-        widget=forms.TextInput(attrs={'placeholder': 'First Name'})
-    )
-    last_name = forms.CharField(
-        label='', max_length=50,
-        widget=forms.TextInput(attrs={'placeholder': 'Last Name'})
-    )
     address_line_one = forms.CharField(
         label='', max_length=50,
         widget=forms.TextInput(attrs={'placeholder': 'Address Line1'})
@@ -100,10 +102,6 @@ class UserProfileInfoForm(forms.ModelForm):
         label='', max_length=50,
         widget=forms.TextInput(attrs={'type': 'text', 'placeholder': 'Phone 222-222-2222'})
     )
-    # of_employees = forms.BooleanField(
-    #     label='# of Employees(Optional)', required=False,
-    #     widget=forms.CheckboxInput(),
-    # )
     of_employees = forms.CharField(
         label='# of Employees(Optional)', max_length=50, required=False,
         widget=forms.TextInput()
@@ -116,7 +114,7 @@ class UserProfileInfoForm(forms.ModelForm):
     class Meta:
         model = UserProfileInfo
         fields = (
-            'business_name', 'first_name', 'last_name', 'address_line_one',
+            'business_name', 'address_line_one',
             'address_line_two', 'city', 'st', 'zip_code', 'phone_number',
             'of_employees', 'company'
         )
@@ -124,11 +122,16 @@ class UserProfileInfoForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(UserProfileInfoForm, self).clean()
 
-        phone_re = re.compile(r'\d{10}$')
-        phone_number = cleaned_data.get("phone_number")
-        phone_number = only_numerics(phone_number)
-        if not phone_re.match(phone_number):
-            self.add_error('phone_number', "phone_number is not correct")
+        pattern = '(?:\(\d{3}\)|\d{3}-)\d{3}-\d{4}$'
+
+        phone_number = cleaned_data.get('phone_number')
+
+        if not is_valid(phone_number, pattern):
+            self.add_error('phone_number', 'phone_number format is not correct')
+
+        users = UserProfileInfo.objects.filter(phone_number=phone_number)
+        if users.count() > 0:
+            self.add_error('phone_number', 'phone_number is already exist')
 
         return cleaned_data
 
@@ -156,27 +159,14 @@ class UserPaymentInfoForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(UserPaymentInfoForm, self).clean()
 
-        pattern = '^([0-9]{4})-?([0-9]{4})-?([0-9]{4})-?([0-9]{4})$'
+        pattern = '\d{4}-\d{4}-\d{4}-\d{4}'
 
         card_number = cleaned_data.get("card_number")
 
         if not is_valid(card_number, pattern):
-            self.add_error('card_number', "card_number is not correct")
+            self.add_error('card_number', "card_number format is not correct")
 
         return cleaned_data
-
-
-# class CustomSetPasswordForm(SetPasswordForm):
-#     new_password1 = forms.CharField(
-#         label="New password",
-#         widget=forms.PasswordInput,
-#         help_text=None,
-#     )
-
-
-def only_numerics(p):
-    seq_type = type(p)
-    return seq_type().join(filter(seq_type.isdigit, p))
 
 
 def is_valid(sequence, pattern):

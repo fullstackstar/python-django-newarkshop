@@ -1,0 +1,69 @@
+{% extends "main_site/base.html" %}
+
+{% block content %}
+    <div class='landing-vendor'>
+        <div class="row">
+            <div class="dashboard-detail">
+                <div class="detail-header">
+                    <div class="row">
+                        <span class="title float-left">User List</span>
+                        <span class="float-right">
+                            {{ users.start_index }} - {{ users.end_index }} of {{ count }}
+                        </span>
+                    </div>
+                </div>
+                <div class="detail-content">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>User Type</th>
+                            <th>action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.userprofileinfo.phone_number }}</td>
+                                <td>{{ user.user_type }}</td>
+                                <td>
+                                    <a href="{% url 'main_site:admin_user_delete' user.id %}" class="btn btn-primary">delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="detail-footer">
+                    <div class="row">
+                        {% if users.has_other_pages %}
+                            <ul class="pagination float-right">
+                                {% if users.has_previous %}
+                                    <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                    <li class="disabled"><span>&laquo;</span></li>
+                                {% endif %}
+                                {% for i in users.paginator.page_range %}
+                                    {% if users.number == i %}
+                                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                    {% else %}
+                                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if users.has_next %}
+                                    <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                    <li class="disabled"><span>&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

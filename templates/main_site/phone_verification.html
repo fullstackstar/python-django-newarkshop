@@ -1,0 +1,27 @@
+{% extends "main_site/base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Enter Consumer Phone Number#
+                </div>
+                <div class="panel-body">
+                    <form method="post">
+                        {% csrf_token %}
+{#                        {% if consumer_not_exist %}#}
+{#                            <div class="alert alert-danger alert-dismissable alert-link">#}
+{#                                <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>#}
+{#                                Consumer with that number does not exist. Check your phone number.#}
+{#                            </div>#}
+{#                        {% endif %}#}
+                        {% bootstrap_form phone_verification_form %}
+                        <button type="submit" class="btn btn-primary">Verification</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

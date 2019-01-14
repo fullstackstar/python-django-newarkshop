@@ -13,45 +13,8 @@
 
         {% csrf_token %}
         <div class="profile-form-div">
-            {%  bootstrap_field profile_form.business_name %}
-            <div class="form-group">
-                <label class="control-label" for="id_first_name">Business Contract*</label>
-                <div class="row">
-                    <div class="col-md-6">
-                        {%  bootstrap_field profile_form.first_name %}
-                    </div>
-                    <div class="col-md-6">
-                        {%  bootstrap_field profile_form.last_name %}
-                    </div>
-                </div>
-            </div>
-            <label class="control-label" for="id_address_line1">Business    Address*</label>
-            {%  bootstrap_field profile_form.address_line_one %}
-            {%  bootstrap_field profile_form.address_line_two %}
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-10">
-                        {%  bootstrap_field profile_form.city %}
-                    </div>
-                    <div class="col-md-2">
-                        {%  bootstrap_field profile_form.st %}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-5">
-                        {%  bootstrap_field profile_form.zip_code %}
-                    </div>
-                    <div class="col-md-7">
-                        {%  bootstrap_field profile_form.phone_number %}
-                    </div>
-                </div>
-            </div>
-
-            {% bootstrap_field profile_form.company %}
+            {% bootstrap_form profile_form %}
             {% bootstrap_form user_form %}
-            {% bootstrap_field profile_form.of_employees %}
 
             {% if user_type == 'vendor' %}
                 {% bootstrap_field payment_form.card_number %}

@@ -1,0 +1,61 @@
+{% extends "main_site/base.html" %}
+
+{% block content %}
+    <div class='landing-vendor'>
+        <div class="dashboard-transaction-list">
+            <div class="detail-header">
+                <div class="row">
+                    <span class="title float-left">Transaction Details</span>
+                    <span class="float-right">
+                        {{ consumers.start_index }}-{{ consumers.end_index }} of {{ consumer_count }}
+                    </span>
+                </div>
+            </div>
+            <div class="detail-content">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Customer ID</th>
+                        <th>Total Purchase Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for consumer in consumers %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ consumer.username }}</td>
+                            <td>{{ consumer.total_amount }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="detail-footer">
+                <div class="row">
+                    {% if transactions.has_other_pages %}
+                        <ul class="pagination float-right">
+                            {% if transactions.has_previous %}
+                                <li><a href="?page={{ transactions.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                            {% endif %}
+                            {% for i in transactions.paginator.page_range %}
+                                {% if transactions.number == i %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if transactions.has_next %}
+                                <li><a href="?page={{ transactions.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

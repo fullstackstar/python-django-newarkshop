@@ -43,21 +43,20 @@
 .detail-header span.title {
     font-size: 18px;
 }
-
-
-
-
-
-
-.float-left {
-    float: left;
+.dashboard > div {
+    padding: 20px 0;
+    text-align: center;
 }
-.float-right {
-    float: right;
+.total-sales {
+    margin-top: 20px;
 }
-.color-danger {
-    color: #a94442 !important;
+.dashboard > div > p {
+    font-size: 18px;
 }
-.color-success {
-    color:#3c763d !important;
+.page-content {
+    margin-bottom: 50px;
+}
+
+.notification-box {
+    margin: 20px;
 }

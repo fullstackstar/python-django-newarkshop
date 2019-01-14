@@ -1,0 +1,32 @@
+{% extends "main_site/base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Transaction Info
+                </div>
+                <div class="panel-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="transaction-confirm-info">
+                            <p class="label-custom">Phone number : <span class="confirm_phone_number">{{ consumer.userprofileinfo.phone_number }}</span></p>
+                            <p class="label-custom">
+                                First Name : <span class="confirm_first_name">{{ consumer.first_name }}</span>
+                            </p>
+                            <p class="label-custom">
+                                Last Name : <span class="confirm_last_name">{{ consumer.last_name }}</span>
+                            </p>
+                            <p class="label-custom">Email Address : <span class="confirm_username">{{ consumer.email }}</span></p>
+                        </div>
+
+                        {% bootstrap_form transaction_form %}
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
