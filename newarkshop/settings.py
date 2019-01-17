@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from decouple import config
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -87,15 +88,18 @@ WSGI_APPLICATION = 'newarkshop.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': config('DB_NAME'),
+    #     'USER': config('DB_USER'),
+    #     'PASSWORD': config('DB_PASSWORD'),
+    #     'HOST': config('DB_HOST'),
+    #     'PORT': config('DB_PORT'),
+    #     'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
+    # }
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
@@ -119,12 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-    # {
-    #     'NAME': 'users.validators.NumericPasswordValidator',
-    #     'OPTIONS': {
-    #         'min_digits': 1
-    #     }
-    # },
 ]
 
 
@@ -167,15 +165,28 @@ STRIPE_PUBLISHABLE_KEY = 'pk_test_7zRJ7Pl0EpmJ6ACNmjzk4mQL'
 # MAILGUN_SERVER_NAME = 'sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.org'
-# EMAIL_HOST = config('EMAIL_HOST'),
-EMAIL_PORT = 587
-# EMAIL_PORT = config('EMAIL_PORT', cast=int),
-EMAIL_HOST_USER = 'postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org'
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER'),
-EMAIL_HOST_PASSWORD = 'd864606fe44cc24fea814f30fd0f984a-49a2671e-b70b7ebd'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>'
-SERVER_EMAIL = 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>'
+# EMAIL_HOST = 'smtp.mailgun.org'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org'
+# EMAIL_HOST_PASSWORD = 'd864606fe44cc24fea814f30fd0f984a-49a2671e-b70b7ebd'
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>'
+# SERVER_EMAIL = 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>'
+
+# EMAIL_HOST = 'smtp.office365.com'
+# EMAIL_HOST_USER = 'info@jasfel.com'
+# EMAIL_HOST_PASSWORD = 'ShopNewark2019g#'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'info@jasfel.com'
+# SERVER_EMAIL = 'info@jasfel.com'
+
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+SERVER_EMAIL = config('SERVER_EMAIL')
 
 LOGIN_REDIRECT_URL = '/user/login'

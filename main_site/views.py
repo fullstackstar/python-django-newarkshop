@@ -34,56 +34,35 @@ def index(request):
 @login_required
 def admin_dashboard(request):
     transactions_list = Transaction.objects.all()
-    transactions = get_pagenatied_items(request, transactions_list)
+    total_sales = 0
+    for transaction in transactions_list:
+        transaction.amount = set_digit_format(transaction.amount)
+        total_sales += float(transaction.amount)
 
+    total_sales = set_digit_format(total_sales)
     transaction_count = Transaction.objects.all().count()
 
-    users_list = CustomUser.objects.filter(is_superuser=0)
-    users = get_pagenatied_items(request, users_list)
-    user_count = CustomUser.objects.all().count()
+    transactions = get_pagenatied_items(request, transactions_list)
+
+    # for transaction in transactions:
+    #     transaction.current_index = transactions.start_index() + transactions.index(transaction)
+
+    # for i, item in enumerate(transactions):
+    #     print(i == transactions.index(item))
+    #     print(i)
+    #     print(item)
+    transactions = add_property(transactions)
 
     context = {
         'transactions': transactions,
-        'users': users,
         'transaction_count': transaction_count,
-        'user_count': user_count,
+        'total_sales': total_sales,
     }
     return render(request, 'main_site/admin_dashboard.html', context)
 
 
 @login_required
 def admin_transactions(request):
-    # if request.method != 'POST':
-    #     email_search_form = EmailSearchForm()
-    # else:
-    #     email_search_form = EmailSearchForm(data=request.POST)
-    #     if email_search_form.is_valid():
-    #         email = email_search_form.data['email']
-    #         user = CustomUser.objects.get(username=email)
-    #         if user.count():
-    #             transactions_list = Transaction.objects.filter(consumer_id=user.id)
-    #             count = transactions_list.count()
-
-    # for consumer in consumer_list:
-    #     transactions_per_consumer = Transaction.objects.filter(consumer_id=consumer.id)
-    #     total_amount = 0
-    #     for transaction in transactions_per_consumer:
-    #         total_amount += int(transaction.amount)
-    #
-    #     consumer.total_amount = total_amount
-
-    # i = 0
-    # j = 1
-    # while i < consumer_list.count() - 1:
-    #     while j < consumer_list.count():
-    #         if consumer_list[i].total_amount < consumer_list[j].total_amount:
-    #             temp = consumer_list[i]
-    #             consumer_list[i] = consumer_list[j]
-    #             consumer_list[j] = temp
-    #         j + 1
-    #
-    #     i + 1
-
     consumer_list = CustomUser.objects.raw(
         '''SELECT t.id, u.username, SUM(t.amount) total_amount
             FROM main_site_transaction as t
@@ -95,9 +74,11 @@ def admin_transactions(request):
     for consumer in consumer_list:
         if consumer.total_amount is None:
             consumer.total_amount = 0
+        consumer.total_amount = set_digit_format(consumer.total_amount)
 
     consumer_count = CustomUser.objects.filter(user_type='consumer').count()
     consumers = get_pagenatied_items(request, consumer_list)
+    consumers = add_property(consumers)
     context = {
         'consumers': consumers,
         'consumer_count': consumer_count
@@ -109,9 +90,9 @@ def admin_transactions(request):
 @login_required
 def admin_users(request):
     users_list = CustomUser.objects.filter(is_superuser=0)
-    users = get_pagenatied_items(request, users_list)
-
     count = users_list.count()
+    users = get_pagenatied_items(request, users_list)
+    users = add_property(users)
 
     context = {
         'users': users,
@@ -131,13 +112,19 @@ def admin_user_delete(request, user_id):
 @login_required
 def vendor_dashboard(request):
     transactions_list = Transaction.objects.filter(vendor_id=request.user.id)
-    transactions = get_pagenatied_items(request, transactions_list)
+    total_count = transactions_list.count()
+    total_sales = 0
+    for transaction in transactions_list:
+        transaction.amount = set_digit_format(transaction.amount)
+        total_sales += float(transaction.amount)
 
-    count = transactions_list.count()
+    total_sales = set_digit_format(total_sales)
+    transactions = get_pagenatied_items(request, transactions_list)
 
     context = {
         'transactions': transactions,
-        'count': count,
+        'total_count': total_count,
+        'total_sales': total_sales,
         'vendor_name': request.user.userprofileinfo.business_name
     }
     return render(request, 'main_site/vendor_dashboard.html', context)
@@ -198,14 +185,22 @@ def vendor_transaction(request, consumer_id):
 
 @login_required
 def consumer_dashboard(request):
-    transaction_list = Transaction.objects.filter(consumer_id=request.user.id)
-    transactions = get_pagenatied_items(request, transaction_list)
+    transactions_list = Transaction.objects.filter(consumer_id=request.user.id)
+    # transaction_count = transaction_list.count()
+    # transactions = get_pagenatied_items(request, transactions_list)
+    total_count = transactions_list.count()
+    total_sales = 0
+    for transaction in transactions_list:
+        transaction.amount = set_digit_format(transaction.amount)
+        total_sales += float(transaction.amount)
 
-    count = transaction_list.count()
+    total_sales = set_digit_format(total_sales)
+    transactions = get_pagenatied_items(request, transactions_list)
 
     context = {
         'transactions': transactions,
-        'count': count
+        'total_count': total_count,
+        'toatal_sales': total_sales
     }
     return render(request, 'main_site/consumer_dashboard.html', context)
 
@@ -266,3 +261,16 @@ def get_pagenatied_items(request, item_list, per_page=10):
 
     # result = {'data': items, 'count': count}
     return items
+
+
+def add_property(list_object):
+    for item_object in list_object:
+        item_object.current_index = list_object.start_index() + list_object.index(item_object)
+
+    return list_object
+
+
+def set_digit_format(_value):
+    value = float(_value)
+    value = "{0:.2f}".format(value)
+    return value

@@ -23,7 +23,7 @@
                     <tbody>
                     {% for consumer in consumers %}
                         <tr>
-                            <td>{{ forloop.counter }}</td>
+                            <td>{{ consumer.current_index }}</td>
                             <td>{{ consumer.username }}</td>
                             <td>{{ consumer.total_amount }}</td>
                         </tr>
@@ -33,22 +33,22 @@
             </div>
             <div class="detail-footer">
                 <div class="row">
-                    {% if transactions.has_other_pages %}
+                    {% if consumers.has_other_pages %}
                         <ul class="pagination float-right">
-                            {% if transactions.has_previous %}
-                                <li><a href="?page={{ transactions.previous_page_number }}">&laquo;</a></li>
+                            {% if consumers.has_previous %}
+                                <li><a href="?page={{ consumers.previous_page_number }}">&laquo;</a></li>
                             {% else %}
                                 <li class="disabled"><span>&laquo;</span></li>
                             {% endif %}
-                            {% for i in transactions.paginator.page_range %}
-                                {% if transactions.number == i %}
+                            {% for i in consumers.paginator.page_range %}
+                                {% if consumers.number == i %}
                                     <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
                                 {% else %}
                                     <li><a href="?page={{ i }}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
-                            {% if transactions.has_next %}
-                                <li><a href="?page={{ transactions.next_page_number }}">&raquo;</a></li>
+                            {% if consumers.has_next %}
+                                <li><a href="?page={{ consumers.next_page_number }}">&raquo;</a></li>
                             {% else %}
                                 <li class="disabled"><span>&raquo;</span></li>
                             {% endif %}

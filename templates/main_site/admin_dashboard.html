@@ -10,7 +10,7 @@
                 </div>
                 <div class="total-sales">
                     <h3>Total Sales</h3>
-                    <p>###</p>
+                    <p>{{ total_sales }}</p>
                 </div>
             </div>
             <div class="col-md-8 dashboard-detail">
@@ -29,15 +29,17 @@
                             <tr>
                                 <th>#</th>
                                 <th>Customer ID</th>
+                                <th>Phone Number</th>
                                 <th>Purchase Date</th>
-                                <th>Purchase Amount</th>
+                                <th width="10%">Purchase Amount</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for transaction in transactions %}
                                 <tr>
-                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ transaction.current_index }}</td>
                                     <td>{{ transaction.consumer.username }}</td>
+                                    <td>{{ transaction.consumer.userprofileinfo.phone_number }}</td>
                                     <td>{{ transaction.purchased_date }}</td>
                                     <td>{{ transaction.amount }}</td>
                                 </tr>

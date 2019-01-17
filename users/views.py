@@ -96,6 +96,9 @@ def register_step_four(request):
                 new_user.email = new_user.username
                 new_user.set_password(new_user.password)
                 new_user.user_type = user_type
+                new_user.first_name = new_user.first_name.capitalize()
+                new_user.last_name = new_user.last_name.capitalize()
+
                 profile = profile_form.save(commit=False)
                 profile.user = new_user
 
@@ -108,8 +111,12 @@ def register_step_four(request):
                 new_user.email = new_user.username
                 new_user.set_password(new_user.password)
                 new_user.user_type = user_type
+                new_user.first_name = new_user.first_name.capitalize()
+                new_user.last_name = new_user.last_name.capitalize()
+
                 profile = profile_form.save(commit=False)
                 profile.user = new_user
+
                 payment = payment_form.save(commit=False)
                 payment.user = new_user
                 payment.pay_amount = 20
@@ -142,22 +149,3 @@ def get_user_type(request):
 
     return user_type
 
-
-# class ExtPasswordResetView(auth_views.PasswordResetView):
-#     template_name = 'users/password_reset.html',
-#     email_template_name = 'users/password_reset_email.html',
-#     subject_template_name = 'users/password_reset_subject.txt',
-#     from_email = settings.DEFAULT_FROM_EMAIL,
-#     success_url = reverse_lazy('users:password_reset_done')
-#
-#
-# password_reset_view = ExtPasswordResetView.as_view()
-#
-#
-# class ExtPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
-#     template_name = 'users/password_reset_confirm.html',
-#     success_url = reverse_lazy('users:password_reset_complete')
-#     # form_class = SetPasswordForm
-#
-#
-# password_reset_confirm = ExtPasswordResetConfirmView.as_view()

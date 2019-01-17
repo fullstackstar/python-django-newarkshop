@@ -30,7 +30,7 @@ class PhoneVerificationForm(forms.Form):
 class TransactionForm(forms.ModelForm):
     amount = forms.CharField(
         label='Transaction Amount',
-        widget=forms.TextInput(attrs={'type': 'number', 'placeholder': 'Transaction Amount'})
+        widget=forms.TextInput(attrs={'placeholder': 'Transaction Amount'})
     )
 
     class Meta:

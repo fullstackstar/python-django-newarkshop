@@ -26,7 +26,7 @@
                         <tbody>
                         {% for user in users %}
                             <tr>
-                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.current_index }}</td>
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.userprofileinfo.phone_number }}</td>
                                 <td>{{ user.user_type }}</td>

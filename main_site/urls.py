@@ -7,7 +7,7 @@ app_name = 'main_site'
 urlpatterns = [
     # Home page.
     path('', views.index, name='index'),
-    path('admin/dashboard', views.admin_dashboard, name='admin_dashboard'),
+    path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('admin/dashboard/transactions', views.admin_transactions, name='admin_transactions'),
     path('admin/dashboard/users', views.admin_users, name='admin_users'),
     path('admin/dashboard/users/delete/(?P<user_id>\d+)$', views.admin_user_delete, name='admin_user_delete'),
