@@ -1,16 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Welcome to payment page</h1>
-    <h2>{{amount_dollar}}$ for pay</h2>
-
-    <form action="{% url 'payments:charge' %}" method="post">
-        {% csrf_token %}
-        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="pk_test_7zRJ7Pl0EpmJ6ACNmjzk4mQL"
-            data-description="A Django Charge"
-            data-amount="{{amount_cent}}"
-            data-locale="auto">
-        </script>
-    </form>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Please submit monthly subscription
+                </div>
+                <div class="panel-body">
+                    <h5>${{amount_dollar}} for pay</h5>
+                    <form action="{% url 'payments:charge' %}" method="post">
+                        {% csrf_token %}
+                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_XtLLhorcPhTY87TZIja6Eq2K"
+                                data-description="Card Information"
+                                data-amount="{{amount_cent}}"
+                                data-locale="auto">
+                        </script>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
