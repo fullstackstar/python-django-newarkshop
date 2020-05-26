@@ -6,7 +6,7 @@ This Project is a Django CRUD Project which demonstrates the following
 1. Using Django template
 2. Making HTTP calls
 3. Integrating Payment(Stripe)
-4. Integrating Email System(Mailgun)
+4. Integrating Email System(Office365)
 5. Using Basic Routing in Django
 6. Using Python Decouple in Django
 

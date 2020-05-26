@@ -91,19 +91,6 @@ DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': config('DB_NAME'),
-    #     'USER': config('DB_USER'),
-    #     'PASSWORD': config('DB_PASSWORD'),
-    #     'HOST': config('DB_HOST'),
-    #     'PORT': config('DB_PORT'),
-    #     'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
-    # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
 }
 
 
@@ -158,27 +145,6 @@ BOOTSTRAP3 = {
 }
 
 LOGIN_REDIRECT_URL = '/user/login'
-
-# EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-# MAILGUN_ACCESS_KEY = 'b6b008c48658c7086a8f6f0f16590ae1-49a2671e-50afe42b'
-# MAILGUN_SERVER_NAME = 'sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org'
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.mailgun.org'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org'
-# EMAIL_HOST_PASSWORD = 'd864606fe44cc24fea814f30fd0f984a-49a2671e-b70b7ebd'
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>'
-# SERVER_EMAIL = 'NewarkShop <postmaster@sandbox06f5ad68577b4b298c00df0f028d5a7b.mailgun.org>'
-
-# EMAIL_HOST = 'smtp.office365.com'
-# EMAIL_HOST_USER = 'info@jasfel.com'
-# EMAIL_HOST_PASSWORD = 'ShopNewark2019g#'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = 'info@jasfel.com'
-# SERVER_EMAIL = 'info@jasfel.com'
 
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
